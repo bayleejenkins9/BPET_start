@@ -12,26 +12,25 @@
 
 library(sf)
 library(terra)
-library(tictoc)
 library(tidyterra)
 library(tidyverse)
 
 # 2. Load data ------------------------------------------------------------
 
 ## Study area
-
+selected_muni_sf <- read_sf("data/municipality.geojson")
 
 ## Satellite image
-
+sentinel_sr <- rast("data/sentinel/ES6538026.tif") / 1000
 
 # 3. Data analysis --------------------------------------------------------
 
 ## Calculate NDVI
 ## Formula: NDVI = (N - R) / (N + R)
-
+NDVI_sr <- (sentinel_sr$N - sentinel_sr$R) / (sentinel_sr$N + sentinel_sr$R)
 
 ## Rename band
-
+names(NDVI_sr) <- "NDVI"
 
 # 4. Results --------------------------------------------------------------
 
